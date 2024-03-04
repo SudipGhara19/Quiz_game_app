@@ -59,15 +59,17 @@ const questionEl = document.getElementById("question");
 const scoreEl = document.getElementById("score");
 const optionEl = document.getElementById("options");
 
+showQuestion();
+
 
 function showQuestion(){
-  const {correctAnswer, answers, question} = quesJSON[currentQuestion];
+  const {correctAnswer, options, question} = quesJSON[currentQuestion];
 
   //showing the question
-questionEl.textContent = questionObj.question;
+questionEl.textContent = question;
 
 //shuffle options in every render
-const shuffledOption = shuffleOption(answers);
+const shuffledOption = shuffleOption(options);
 
 //showing all answer option
 shuffledOption.forEach((opt)=> {
@@ -85,16 +87,25 @@ shuffledOption.forEach((opt)=> {
 
     scoreEl.textContent = `Score: ${score}`;
 
-    //after answered turning the fields empty
-    questionEl.textContent = "Quiz Completed";
-    optionEl.textContent = ''; 
+    nextQuestion();
+    
+    
   });
 });
 }
 
 
 
+function nextQuestion(){
+  currentQuestion++;
+  optionEl.textContent = ''; 
+  if(currentQuestion >= quesJSON.length){
+    questionEl.textContent = "Quiz Completed";
+  }else{
+    showQuestion();
+  }
 
+}
 
 
 
