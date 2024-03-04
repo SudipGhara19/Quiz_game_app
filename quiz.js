@@ -19,8 +19,10 @@ const optionEl = document.getElementById("options");
 //showing the question
 questionEl.textContent = questionObj.question;
 
+const shuffledOption = shuffleOption(answers);
+
 //showing all answer option
-answers.forEach((opt)=> {
+shuffledOption.forEach((opt)=> {
   const btn = document.createElement("button");
   btn.textContent = opt;
   optionEl.appendChild(btn);
@@ -40,3 +42,12 @@ answers.forEach((opt)=> {
     optionEl.textContent = ''; 
   });
 });
+
+//shuffling the options after every refresh
+function shuffleOption(options){
+  for(let i = options.length - 1; i >= 0; i--){
+    const j = Math.floor(Math.random() * i+1);
+    [options[i], options[j]] = [options[j], options[i]];
+  }
+return options;
+}
