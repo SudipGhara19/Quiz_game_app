@@ -54,12 +54,20 @@ const quesJSON = [
 
 let score = 0;
 let currentQuestion = 0;
+let totalScore = quesJSON.length;
 
 const questionEl = document.getElementById("question");
 const scoreEl = document.getElementById("score");
 const optionEl = document.getElementById("options");
+const nextEl = document.getElementById("next");
 
 showQuestion();
+
+nextEl.addEventListener('click', () => {
+  scoreEl.textContent = `Score: ${score} / ${totalScore}`;
+  nextQuestion();
+
+})
 
 
 function showQuestion(){
@@ -85,7 +93,7 @@ shuffledOption.forEach((opt)=> {
       score = score - 0.25;
     }
 
-    scoreEl.textContent = `Score: ${score}`;
+    scoreEl.textContent = `Score: ${score} / ${totalScore}`;
 
     nextQuestion();
     
@@ -101,6 +109,7 @@ function nextQuestion(){
   optionEl.textContent = ''; 
   if(currentQuestion >= quesJSON.length){
     questionEl.textContent = "Quiz Completed";
+    nextEl.remove();
   }else{
     showQuestion();
   }
